@@ -1,11 +1,11 @@
 # Bamboozled!
 
-A simple PowerShell module for extracting a user report from BambooHR.
+A simple PowerShell module to extract user reports from [BambooHR](https://www.bamboohr.com/).
 
 ## Installation
 
-1. Download the module.
-2. Copy to the modules folder in your environment. See [this article](https://docs.microsoft.com/en-us/powershell/developer/module/installing-a-powershell-module) for details.
+1. Download and unzip the module.
+2. Copy to PowerShell's modules folder in your environment. See [this article](https://docs.microsoft.com/en-us/powershell/developer/module/installing-a-powershell-module) for details.
 3. That's it!
 
 ## Getting Started
@@ -40,10 +40,8 @@ A list of available fields can be found in [BambooHR's API documentation](https:
 
 **Filtering by "Changed since"**
 
-To find a list of user records that have changed since a specified date, you can use the 'since' flag as below:
+To find a list of user records that have changed since a specified date, you can use the 'since' flag as below. The module expects the time to be provided in [ISO 8601 format](https://www.iso.org/iso-8601-date-and-time-format.html).
 
 ```
 Get-BambooHRDirectory -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -since "2018-10-22T15:00:00Z"
 ```
-
-Please note, the module expects the time to be provided in [ISO 8601 format](https://www.iso.org/iso-8601-date-and-time-format.html).

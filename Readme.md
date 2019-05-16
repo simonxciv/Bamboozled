@@ -1,6 +1,6 @@
 # Bamboozled!
 
-A simple PowerShell module to extract user reports from [BambooHR](https://www.bamboohr.com/).
+A simple PowerShell module to extract user reports from [BambooHR](https://www.bamboohr.com/). For more information about this module, see the [Bamboozled article on my personal blog](https://smnbkly.co/blog/bamboozled-powershell-and-the-bamboohr-api).
 
 ## Installation
 

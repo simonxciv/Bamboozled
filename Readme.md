@@ -14,6 +14,7 @@ A simple PowerShell module to extract user information from [BambooHR](https://w
 
 - Get-BambooHRDirectory: Gets a directory of users from BambooHR
 - Get-BambooHRUser: Gets a single user from BambooHR
+- Get-BambooHRFields: Uses the BambooHR meta API to get a list of all available fields
 
 ## Get-BambooHRDirectory
 
@@ -43,7 +44,7 @@ To adjust the fields returned in the results, you can use the fields flag:
 Get-BambooHRDirectory -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -fields "firstName,lastName,workEmail,supervisorEid"
 ```
 
-A list of available fields can be found in [BambooHR's API documentation](https://www.bamboohr.com/api/documentation/employees.php). This module expects the field names to be provided as written in BambooHR's documentation, separated by commas (no spaces).
+A list of available fields can be found in [BambooHR's API documentation](https://www.bamboohr.com/api/documentation/employees.php), or by using the Get-BambooHRFields commandlet. This module expects the field names to be provided as written in BambooHR's documentation, separated by commas (no spaces).
 
 ### Filtering by "Changed since"
 
@@ -69,6 +70,27 @@ The above command will output BambooHR's information related to the employee wit
 
 If you don't have the employee's ID, you can use their email address instead. Note however, this performs a full directory lookup first, extracts the user's ID, and then performs an API request for that user's ID. If you have the employee's unique ID, the command above will be considerably quicker.
 
+### Customising fields
+
+To adjust the fields returned in the results, you can use the fields flag:
+
+```powershell
+Get-BambooHRUser -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -id 300 -fields "firstName,lastName,workEmail,supervisorEid"
+```
+
+A list of available fields can be found in [BambooHR's API documentation](https://www.bamboohr.com/api/documentation/employees.php), or by using the Get-BambooHRFields commandlet. This module expects the field names to be provided as written in BambooHR's documentation, separated by commas (no spaces).
+
+
 ```powershell
 Get-BambooHRUser -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -emailAddress "test@example.com"
+```
+
+## Get-BambooHRFields
+
+### The basics
+
+The basic syntax for the Get-BambooHRFields commandlet is below.
+
+```powershell
+Get-BambooHRFields -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname"
 ```

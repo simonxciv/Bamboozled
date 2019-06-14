@@ -70,6 +70,10 @@ The above command will output BambooHR's information related to the employee wit
 
 If you don't have the employee's ID, you can use their email address instead. Note however, this performs a full directory lookup first, extracts the user's ID, and then performs an API request for that user's ID. If you have the employee's unique ID, the command above will be considerably quicker.
 
+```powershell
+Get-BambooHRUser -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -emailAddress "test@example.com"
+```
+
 ### Customising fields
 
 To adjust the fields returned in the results, you can use the fields flag:
@@ -79,11 +83,6 @@ Get-BambooHRUser -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname"
 ```
 
 A list of available fields can be found in [BambooHR's API documentation](https://www.bamboohr.com/api/documentation/employees.php), or by using the Get-BambooHRFields commandlet. This module expects the field names to be provided as written in BambooHR's documentation, separated by commas (no spaces).
-
-
-```powershell
-Get-BambooHRUser -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -emailAddress "test@example.com"
-```
 
 ## Get-BambooHRFields
 

@@ -17,7 +17,7 @@ A simple PowerShell module to extract user information from [BambooHR](https://w
 
 ## Get-BambooHRDirectory
 
-**The basics**
+### The basics
 
 The basic syntax for the Get-BambooHRDirectory commandlet is below. This commandlet also provides a few options, detailed later.
 

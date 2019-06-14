@@ -131,13 +131,13 @@ function Get-BambooHRUser {
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 
     # If an ID is provided, set the employeeID variable
-    if($id -ne $null)
+    if($null -ne $id)
     {
         $employeeID = $id
     }
 
     # If the email address is provided, lookup the directory to find the user's ID
-    elseif($emailAddress -ne $null)
+    elseif($null -ne $emailAddress)
     {
 
         # Get the user directory
@@ -151,7 +151,7 @@ function Get-BambooHRUser {
     }
 
     # If no parameters were provided, fail
-    elseif($emailAddress -eq $null -and $id -eq $null)
+    elseif($null -eq $emailAddress -and $null -eq $id)
     {
         throw "No parameter was provided. Please provide an email address or employee ID."
     }

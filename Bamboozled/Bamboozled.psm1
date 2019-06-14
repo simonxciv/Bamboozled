@@ -160,8 +160,8 @@ function Get-BambooHRUser {
     param(
         [Parameter(Mandatory=$true,Position=0)]$apiKey,
         [Parameter(Mandatory=$true,Position=1)]$subDomain,
-        [Parameter(Mandatory=$false,Position=2)]$emailAddress,
-        [Parameter(Mandatory=$false,Position=3)]$id
+        [Parameter(Mandatory=$false,Position=2)]$id,
+        [Parameter(Mandatory=$false,Position=3)]$emailAddress
     )
     # Force use of TLS1.2 for compatibility with BambooHR's API server. Powershell on Windows defaults to 1.1, which is unsupported
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12

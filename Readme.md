@@ -27,7 +27,7 @@ Get-BambooHRDirectory -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "company
 
 When run, this command will output a list of all employees, past and present, including all fields available from BambooHR's API. For a full list of these fields, see [this link](https://www.bamboohr.com/api/documentation/employees.php#listFields).
 
-**Active users only**
+### Active users only
 
 To filter by active users, use the 'active' flag:
 
@@ -35,7 +35,7 @@ To filter by active users, use the 'active' flag:
 Get-BambooHRDirectory -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -active
 ```
 
-**Customising fields**
+### Customising fields
 
 To adjust the fields returned in the results, you can use the fields flag:
 
@@ -45,7 +45,7 @@ Get-BambooHRDirectory -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "company
 
 A list of available fields can be found in [BambooHR's API documentation](https://www.bamboohr.com/api/documentation/employees.php). This module expects the field names to be provided as written in BambooHR's documentation, separated by commas (no spaces).
 
-**Filtering by "Changed since"**
+### Filtering by "Changed since"
 
 To find a list of user records that have changed since a specified date, you can use the 'since' flag as below. The module expects the time to be provided in [ISO 8601 format](https://www.iso.org/iso-8601-date-and-time-format.html).
 
@@ -55,7 +55,7 @@ Get-BambooHRDirectory -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "company
 
 ## Get-BambooHRUser
 
-**The basics**
+### The basics
 
 The basic syntax for the Get-BambooHRUser commandlet is below. This commandlet also provides a few options, detailed later.
 
@@ -65,7 +65,7 @@ Get-BambooHRUser -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname"
 
 The above command will output BambooHR's information related to the employee with a unique ID of '300'.
 
-**By email address**
+### By email address
 
 If you don't have the employee's ID, you can use their email address instead. Note however, this performs a full directory lookup first, extracts the user's ID, and then performs an API request for that user's ID. If you have the employee's unique ID, the command above will be considerably quicker.
 

@@ -82,7 +82,7 @@ function Get-BambooHRDirectory {
         $sinceXML = ''
     }
 
-    # If user does not provide a set the default field list.
+    # If user does not provide a list of fields, set the default field list.
     if($null -eq $fields)
     {
         $fields = $defaultFields
@@ -161,7 +161,8 @@ function Get-BambooHRUser {
         [Parameter(Mandatory=$true,Position=0)]$apiKey,
         [Parameter(Mandatory=$true,Position=1)]$subDomain,
         [Parameter(Mandatory=$false,Position=2)]$id,
-        [Parameter(Mandatory=$false,Position=3)]$emailAddress
+        [Parameter(Mandatory=$false,Position=3)]$emailAddress,
+        [Parameter(Mandatory=$false,Position=4)]$fields
     )
     # Force use of TLS1.2 for compatibility with BambooHR's API server. Powershell on Windows defaults to 1.1, which is unsupported
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
@@ -192,8 +193,11 @@ function Get-BambooHRUser {
         throw "No parameter was provided. Please provide an email address or employee ID."
     }
 
-    # Set the fields to be used by the API call
-    $fields = $defaultFields
+    # If user does not provide a list of fields, set the defaults.
+    if($null -eq $fields)
+    {
+        $fields = $defaultFields
+    }
     
     # Define the URL to perform the request to
     $userUrl = 'https://api.bamboohr.com/api/gateway.php/{0}/v1/employees/{1}?fields={2}' -f $subDomain,$employeeID,$fields

@@ -130,25 +130,36 @@ function Get-BambooHRUser {
     # Force use of TLS1.2 for compatibility with BambooHR's API server. Powershell on Windows defaults to 1.1, which is unsupported
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
 
+    # If an ID is provided, set the employeeID variable
     if($id -ne $null)
     {
         $employeeID = $id
     }
+
+    # If the email address is provided, lookup the directory to find the user's ID
     elseif($emailAddress -ne $null)
     {
+
+        # Get the user directory
         $allStaff = Get-BambooHRDirectory -apiKey $apiKey -subDomain $subDomain -fields 'workEmail'
 
+        # Filter the directory by the provided email address
         $employeeID = $allStaff | Where-Object {$_.workEmail -eq $emailAddress}
 
+        # Get the ID from the user object
         $employeeID = $employeeID.id
     }
+
+    # If no parameters were provided, fail
     elseif($emailAddress -eq $null -and $id -eq $null)
     {
         throw "No parameter was provided. Please provide an email address or employee ID."
     }
 
+    # Set the fields to be used by the API call
     $fields = $defaultFields
     
+    # Define the URL to perform the request to
     $userUrl = 'https://api.bamboohr.com/api/gateway.php/{0}/v1/employees/{1}?fields={2}' -f $subDomain,$employeeID,$fields
 
     # Build a BambooHR credential object using the provided API key
@@ -163,10 +174,14 @@ function Get-BambooHRUser {
         # Convert the output to a PowerShell object
         $bambooHRUser = $bambooHRUser.Content | ConvertFrom-JSON
     }
+
+    # If the above failed, throw an error
     catch
     {
         throw "Failed to download user details."
     }
+
+    # Return the powershell object
     return $bambooHRUser
 }
 

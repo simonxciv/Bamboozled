@@ -1,4 +1,11 @@
 <# ---------------------------------------------------------------------------------------------------------------------------------------
+    GLOBAL VARIABLES
+--------------------------------------------------------------------------------------------------------------------------------------- #>
+
+# BambooHR's default list of fields
+$defaultFields = 'address1,address2,age,bestEmail,birthday,city,country,dateOfBirth,department,division,eeo,employeeNumber,employmentHistoryStatus,ethnicity,exempt,firstName,flsaCode,fullName1,fullName2,fullName3,fullName4,fullName5,displayName,gender,hireDate,originalHireDate,homeEmail,homePhone,id,jobTitle,lastChanged,lastName,location,maritalStatus,middleName,mobilePhone,payChangeReason,payGroup,payGroupId,payRate,payRateEffectiveDate,payType,payPer,paidPer,paySchedule,payScheduleId,payFrequency,includeInPayroll,timeTrackingEnabled,preferredName,ssn,sin,state,stateCode,status,supervisor,supervisorId,supervisorEId,terminationDate,workEmail,workPhone,workPhonePlusExtension,workPhoneExtension,zipcode,isPhotoUploaded,acaStatus,standardHoursPerWeek,bonusDate,bonusAmount,bonusReason,bonusComment,commissionDate,commisionDate,commissionAmount,commissionComment,employmentStatus,nickname,payPeriod,photoUploaded,nin,nationalId,nationality'
+
+<# ---------------------------------------------------------------------------------------------------------------------------------------
     GET-BAMBOOHRAUTH
 --------------------------------------------------------------------------------------------------------------------------------------- #>
 
@@ -39,29 +46,27 @@ function Get-BambooHRDirectory {
         $sinceXML = ''
     }
 
-    # If user provides a set of fields, generate the XML required. Otherwise, set a default field list.
-    if($null -ne $fields)
+    # If user does not provide a set the default field list.
+    if($null -eq $fields)
     {
-        # Split the comma separated fields by the comma
-        $fields = $fields.split(",")
-
-        # Create a new blank array to work with
-        $fieldsArray = @()
-
-        # For each field provided, create the XML required
-        foreach($field in $fields)
-        {
-            $item = '<field id="{0}" />' -f $field
-            $fieldsArray += $item
-        }
-
-        # Join the array to create a single string
-        $fields = $fieldsArray -join ''
+        $fields = $defaultFields
     }
-    else
+
+    # Split the comma separated fields by the comma
+    $fields = $fields.split(",")
+
+    # Create a new blank array to work with
+    $fieldsArray = @()
+
+    # For each field provided, create the XML required
+    foreach($field in $fields)
     {
-        $fields = '<field id="id" /><field id="firstName" /><field id="lastName" /><field id="workEmail" /><field id="status" />'
+        $item = '<field id="{0}" />' -f $field
+        $fieldsArray += $item
     }
+
+    # Join the array to create a single string
+    $fields = $fieldsArray -join ''
 
     # Construct a query string to use for the employee directory report
     $query = @(
@@ -95,8 +100,7 @@ function Get-BambooHRDirectory {
     }
     catch
     {
-        Write-host "Directory download failed." -ForegroundColor Red
-        Throw
+        throw "Directory download failed."
     }
 
     # If the 'active' switch is used, filter the results to show only active employees
@@ -111,4 +115,59 @@ function Get-BambooHRDirectory {
     # Return the powershell object
     return $bambooHRDirectory
 }
-Export-ModuleMember -Function Get-BambooHRDirectory
+
+<# ---------------------------------------------------------------------------------------------------------------------------------------
+    GET-BAMBOOHRUSER
+--------------------------------------------------------------------------------------------------------------------------------------- #>
+
+function Get-BambooHRUser {
+    param(
+        [Parameter(Mandatory=$true,Position=0)]$apiKey,
+        [Parameter(Mandatory=$true,Position=1)]$subDomain,
+        [Parameter(Mandatory=$false,Position=2)]$emailAddress,
+        [Parameter(Mandatory=$false,Position=3)]$id
+    )
+    # Force use of TLS1.2 for compatibility with BambooHR's API server. Powershell on Windows defaults to 1.1, which is unsupported
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+
+    if($id -ne $null)
+    {
+        $employeeID = $id
+    }
+    elseif($emailAddress -ne $null)
+    {
+        $allStaff = Get-BambooHRDirectory -apiKey $apiKey -subDomain $subDomain -fields 'workEmail'
+
+        $employeeID = $allStaff | Where-Object {$_.workEmail -eq $emailAddress}
+
+        $employeeID = $employeeID.id
+    }
+    elseif($emailAddress -eq $null -and $id -eq $null)
+    {
+        throw "No parameter was provided. Please provide an email address or employee ID."
+    }
+
+    $fields = $defaultFields
+    
+    $userUrl = 'https://api.bamboohr.com/api/gateway.php/{0}/v1/employees/{1}?fields={2}' -f $subDomain,$employeeID,$fields
+
+    # Build a BambooHR credential object using the provided API key
+    $bambooHRAuth = Get-BambooHRAuth -ApiKey $apiKey
+
+    # Attempt to connect to the BambooHR API Service
+    try
+    {
+        # Perform the API query
+        $bambooHRUser = Invoke-WebRequest $userUrl -method GET -Credential $bambooHRAuth -Headers @{"accept"="application/json"}
+
+        # Convert the output to a PowerShell object
+        $bambooHRUser = $bambooHRUser.Content | ConvertFrom-JSON
+    }
+    catch
+    {
+        throw "Failed to download user details."
+    }
+    return $bambooHRUser
+}
+
+Export-ModuleMember -Function Get-BambooHRDirectory, Get-BambooHRUser

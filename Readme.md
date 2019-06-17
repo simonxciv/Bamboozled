@@ -15,6 +15,7 @@ A simple PowerShell module to extract user information from [BambooHR](https://w
 - Get-BambooHRDirectory: Gets a directory of users from BambooHR
 - Get-BambooHRUser: Gets a single user from BambooHR
 - Get-BambooHRFields: Uses the BambooHR meta API to get a list of all available fields
+- Update-BambooHRUser: Takes a hash table of BambooHR fields and values to update a user's information
 
 ## Get-BambooHRDirectory
 
@@ -92,4 +93,33 @@ The basic syntax for the Get-BambooHRFields commandlet is below.
 
 ```powershell
 Get-BambooHRFields -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname"
+```
+
+## Update-BambooHRUser
+
+### The basics
+
+To update a BambooHR user's details, use the command below:
+
+```powershell
+Update-BambooHRUser -apiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -id 300 -fields @{firstName="Simon";lastName="Buckley"}
+```
+
+The -fields parameter accepts a hash table containing the fields and values that you wish to update. A list of available fields can be found in [BambooHR's API documentation](https://www.bamboohr.com/api/documentation/employees.php), or by using the Get-BambooHRFields commandlet. To make the script more manageable, you can pass a variable to the parameter like below:
+
+```powershell
+$fields = @{
+    firstName = "Simon"
+    lastName = "Buckley"
+}
+
+Update-BambooHRUser -apiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -id 300 -fields $fields
+```
+
+### By email address
+
+If you don't have the employee's ID, you can use their email address instead. Note however, this performs a full directory lookup first, extracts the user's ID, and then performs the update request against that user's ID. If you have the employee's unique ID, using it instead will be considerably quicker.
+
+```powershell
+Update-BambooHRUser -apiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -emailAddress "test@example.com" -fields $fields
 ```

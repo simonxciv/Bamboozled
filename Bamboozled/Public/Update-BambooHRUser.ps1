@@ -59,7 +59,7 @@ function Update-BambooHRUser {
     $bambooHRAuth = Get-BambooHRAuth -ApiKey $apiKey
 
     # API endpoint URL
-    $userUrl = "https://api.bamboohr.com/api/gateway.php/{0}/v1/employees/{1}" -f $subDomain,$id
+    $userUrl = "https://api.bamboohr.com/api/gateway.php/{0}/v1/employees/{1}" -f $subDomain,$employeeID
 
     # Attempt to connect to the BambooHR API Service
     try
@@ -78,6 +78,6 @@ function Update-BambooHRUser {
     }
     else 
     {
-        return $true    
+        return $true
     }
 }

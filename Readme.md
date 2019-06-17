@@ -99,7 +99,7 @@ Get-BambooHRFields -ApiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companynam
 
 ### The basics
 
-To update a BambooHR user's details, use the command below:
+To update a BambooHR user's details, use the command below. If successful, the command returns TRUE.
 
 ```powershell
 Update-BambooHRUser -apiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -id 300 -fields @{firstName="Simon";lastName="Buckley"}

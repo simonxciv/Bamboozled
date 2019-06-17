@@ -225,4 +225,4 @@ function Get-BambooHRUser {
     return $bambooHRUser
 }
 
-Export-ModuleMember -Function Get-BambooHRDirectory, Get-BambooHRUser, Get-BambooHRFields
+Export-ModuleMember -Function Get-BambooHRFields, Get-BambooHRDirectory, Get-BambooHRUser

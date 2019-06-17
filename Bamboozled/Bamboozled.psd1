@@ -12,7 +12,10 @@
 RootModule = 'Bamboozled.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.0'
+ModuleVersion = '1.0.1'
+
+# Supported PSEditions
+CompatiblePSEditions = @('Desktop', 'Core')
 
 # ID used to uniquely identify this module
 GUID = '5a743cb1-aeef-4254-a9b3-69ff5a274139'
@@ -89,16 +92,16 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('BambooHR','HRIS','Automation')
 
         # A URL to the license for this module.
-        # LicenseUri = ''
+        LicenseUri = 'https://github.com/simonxciv/Bamboozled/blob/master/LICENSE'
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/simonxciv/Bamboozled'
 
         # A URL to an icon representing this module.
-        # IconUri = ''
+        IconUri = 'https://smnbkly.co/bhrlogo.png'
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''

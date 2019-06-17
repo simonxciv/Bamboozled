@@ -12,7 +12,7 @@
 RootModule = 'Bamboozled.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.1'
+ModuleVersion = '1.0.2'
 
 # Supported PSEditions
 CompatiblePSEditions = @('Desktop', 'Core')
@@ -30,7 +30,7 @@ Copyright = '(c) 2019 Simon Buckley. All rights reserved.'
 Description = 'An unofficial PowerShell module to perform actions against the BambooHR API'
 
 # Minimum version of the Windows PowerShell engine required by this module
-PowerShellVersion = '4.0'
+PowerShellVersion = '5.1'
 
 # Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''
@@ -92,7 +92,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('BambooHR','HRIS','Automation')
+        Tags = @('Windows','MacOS','Linux','BambooHR','HRIS','Automation')
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/simonxciv/Bamboozled/blob/master/LICENSE'

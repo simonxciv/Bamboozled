@@ -4,6 +4,12 @@ A simple (unofficial) PowerShell module to extract user information from [Bamboo
 
 ## Installation
 
+**Recommended: From the PowerShell Gallery**
+1. Open PowerShell (Core or Desktop)
+2. Run "install-module -name Bamboozled"
+3. Confirm the prompt to install
+
+**Manually**
 1. Download and unzip the module.
 2. Copy to PowerShell's modules folder in your environment. See [this article](https://docs.microsoft.com/en-us/powershell/developer/module/installing-a-powershell-module) for details.
 3. That's it!

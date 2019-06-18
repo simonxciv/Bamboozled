@@ -12,7 +12,7 @@
 RootModule = 'Bamboozled.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.2'
+ModuleVersion = '1.1.0'
 
 # Supported PSEditions
 CompatiblePSEditions = @('Desktop', 'Core')
@@ -66,7 +66,7 @@ PowerShellVersion = '5.1'
 # NestedModules = @()
 
 # Functions to export from this module
-FunctionsToExport = @('Get-BambooHRUser', 'Get-BambooHRFields', 'Get-BambooHRDirectory', 'Update-BambooHRUser')
+FunctionsToExport = @('Get-BambooHRUser', 'Get-BambooHRFields', 'Get-BambooHRDirectory', 'Update-BambooHRUser', 'New-BambooHRUser')
 
 # Cmdlets to export from this module
 CmdletsToExport = '*'
@@ -104,7 +104,7 @@ PrivateData = @{
         IconUri = 'https://smnbkly.co/bhrlogo.png'
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = 'Added the "New-BambooHRUser" function.'
 
     } # End of PSData hashtable
 

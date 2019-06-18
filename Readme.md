@@ -137,5 +137,5 @@ Update-BambooHRUser -apiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyna
 To add a new user to BambooHR, use the command below. Note, the BambooHR API expects a minimum of firstName and lastName for new users. The 'Fields' parameter expects a hash table of fields/values.
 
 ```powershell
-Update-BambooHRUser -apiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -fields @{firstName="Simon";lastName="Buckley"}
+New-BambooHRUser -apiKey "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" -subDomain "companyname" -fields @{firstName="Simon";lastName="Buckley"}
 ```

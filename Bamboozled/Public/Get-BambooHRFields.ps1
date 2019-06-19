@@ -21,7 +21,7 @@ function Get-BambooHRFields {
     try
     {
         # Perform the API query
-        $bambooHRFields = Invoke-WebRequest $fieldsUrl -method GET -Credential $bambooHRAuth -Headers @{"accept"="application/json"}
+        $bambooHRFields = Invoke-WebRequest $fieldsUrl -method GET -Credential $bambooHRAuth -Headers @{"accept"="application/json"} -UseBasicParsing
 
         # Convert the output to a PowerShell object
         $bambooHRFields = $bambooHRFields.Content | ConvertFrom-Json

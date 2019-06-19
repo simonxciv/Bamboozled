@@ -71,7 +71,7 @@ function Get-BambooHRDirectory {
     try
     {
         # Perform the API query
-        $bambooHRDirectory = Invoke-WebRequest $directoryUrl -method POST -Credential $bambooHRAuth -body $query
+        $bambooHRDirectory = Invoke-WebRequest $directoryUrl -method POST -Credential $bambooHRAuth -body $query -UseBasicParsing
 
         # Convert the output to a PowerShell object
         $bambooHRDirectory = $bambooHRDirectory.Content | ConvertFrom-Json

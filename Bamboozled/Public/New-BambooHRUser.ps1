@@ -44,7 +44,7 @@ function New-BambooHRUser {
     try
     {
         # Perform the API query
-        $newUser = Invoke-WebRequest $userUrl -method POST -Credential $bambooHRAuth -body $query -Headers @{"accept"="application/json"}
+        $newUser = Invoke-WebRequest $userUrl -method POST -Credential $bambooHRAuth -body $query -Headers @{"accept"="application/json"} -UseBasicParsing
     }
     catch
     {

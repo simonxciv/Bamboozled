@@ -12,7 +12,7 @@
 RootModule = 'Bamboozled.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.1.0'
+ModuleVersion = '1.1.1'
 
 # Supported PSEditions
 CompatiblePSEditions = @('Desktop', 'Core')
@@ -104,7 +104,7 @@ PrivateData = @{
         IconUri = 'https://smnbkly.co/bhrlogo.png'
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'Added the "New-BambooHRUser" function.'
+        ReleaseNotes = 'Removed dependency on Internet Explorer.'
 
     } # End of PSData hashtable
 

@@ -48,7 +48,7 @@ function Get-BambooHRUser {
     try
     {
         # Perform the API query
-        $bambooHRUser = Invoke-WebRequest $userUrl -method GET -Credential $bambooHRAuth -Headers @{"accept"="application/json"}
+        $bambooHRUser = Invoke-WebRequest $userUrl -method GET -Credential $bambooHRAuth -Headers @{"accept"="application/json"} -UseBasicParsing
 
         # Convert the output to a PowerShell object
         $bambooHRUser = $bambooHRUser.Content | ConvertFrom-JSON

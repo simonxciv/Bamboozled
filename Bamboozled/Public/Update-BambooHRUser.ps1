@@ -65,7 +65,7 @@ function Update-BambooHRUser {
     try
     {
         # Perform the API query
-        $updateUser = Invoke-WebRequest $userUrl -method POST -Credential $bambooHRAuth -body $query -Headers @{"accept"="application/json"}
+        $updateUser = Invoke-WebRequest $userUrl -method POST -Credential $bambooHRAuth -body $query -Headers @{"accept"="application/json"} -UseBasicParsing
     }
     catch
     {

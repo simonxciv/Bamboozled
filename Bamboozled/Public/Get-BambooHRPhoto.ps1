@@ -49,8 +49,8 @@ function Get-BambooHRPhoto{
         [string]$subdomain,
         [Parameter(Mandatory=$true)]
         [string]$size,
-        [Parameter(Mandatory=$true)]
-        [string]$employeeID
+        [Parameter(Mandatory=$true,ValueFromPipeline)]
+        [string[]]$employeeID
     )
 
     BEGIN{
@@ -58,23 +58,36 @@ function Get-BambooHRPhoto{
         [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
     }
     PROCESS{
-        # Define the URL to perform the request to
-        $photoUrl = 'https://api.bamboohr.com/api/gateway.php/{0}/v1/employees/{1}/photo/{2}' -f $subdomain,$employeeID,$size
-
         # Build a BambooHR credential object using the provided API key
         $bambooHRAuth = Get-BambooHRAuth -ApiKey $apiKey
 
         # Attempt to connect to the BambooHR API Service
         try
-        {
-            # Perform the API query
-            $bambooHRPhoto = Invoke-WebRequest $photoUrl -method GET -Credential $bambooHRAuth -Headers @{"accept"="application/json"} -UseBasicParsing
+        {   
+            $results = @()
 
-            # Savethe photo? What next?
-            $photo = $bambooHRPhoto.Content | ConvertFrom-Json
-            $photo
+            foreach($id in $employeeID){
+
+                # Define the URL to perform the request to
+                $photoUrl = 'https://api.bamboohr.com/api/gateway.php/{0}/v1/employees/{1}/photo/{2}' -f $subdomain,$id,$size
+
+                Write-Verbose "[PROCESS] Calling web request.." 
+                # Perform the API query
+                $bambooHRPhoto = Invoke-WebRequest $photoUrl -method GET -Credential $bambooHRAuth -Headers @{"accept"="application/json"} -UseBasicParsing
+
+                Write-Verbose "[PROCESS] Saving photo" 
+                # Savethe photo? What next?
+                $photo = $bambooHRPhoto.Content | ConvertFrom-Json
+
+                Write-Verbose "[PROCESS] Add photo to results" 
+                $results += [PSCustomObject]@{
+                employeeID = $id
+                thumbnailPhoto = $photo
+                }
+            }
+
+            $results
         }
-
         # If the above failed, throw an error
         catch
         {

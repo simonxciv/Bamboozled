@@ -66,7 +66,7 @@ PowerShellVersion = '5.1'
 # NestedModules = @()
 
 # Functions to export from this module
-FunctionsToExport = @('Get-BambooHRUser', 'Get-BambooHRFields', 'Get-BambooHRDirectory', 'Update-BambooHRUser', 'New-BambooHRUser')
+FunctionsToExport = @('Get-BambooHRUser', 'Get-BambooHRFields', 'Get-BambooHRDirectory', 'Update-BambooHRUser', 'New-BambooHRUser', 'Get-BambooHRPhoto')
 
 # Cmdlets to export from this module
 CmdletsToExport = '*'

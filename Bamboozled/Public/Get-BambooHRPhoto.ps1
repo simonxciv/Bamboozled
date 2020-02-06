@@ -1,6 +1,3 @@
-## TODO: Add support for pipeline inputs
-## TODO: Make output a rich PS object with user id and photo data.
-
 <#
 .SYNOPSIS
 Returns the photo of the user or users passed as input in bytes.

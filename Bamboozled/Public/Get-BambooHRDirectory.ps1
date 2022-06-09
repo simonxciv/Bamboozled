@@ -62,7 +62,7 @@ function Get-BambooHRDirectory {
     $query = $query -join ''
 
     # API endpoint URL
-    $directoryUrl = "https://api.bamboohr.com/api/gateway.php/{0}/v1/reports/custom?format=json" -f $subDomain
+    $directoryUrl = "https://api.bamboohr.com/api/gateway.php/{0}/v1/reports/custom?format=json&onlyCurrent=false" -f $subDomain
 
     # Build a BambooHR credential object using the provided API key
     $bambooHRAuth = Get-BambooHRAuth -ApiKey $apiKey

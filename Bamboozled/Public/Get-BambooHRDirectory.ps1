@@ -9,7 +9,7 @@ function Get-BambooHRDirectory {
         [Parameter(Mandatory=$false,Position=2)]$since,
         [Parameter(Mandatory=$false,Position=3)]$fields,
         [Parameter(Mandatory=$false,Position=4)][switch]$active,
-        [Parameter(Mandatory=$false,Position=5)][bool]$onlyCurrent = $false
+        [Parameter(Mandatory=$false,Position=5)][bool]$onlyCurrent = $true
     )
 
     # Force use of TLS1.2 for compatibility with BambooHR's API server. Powershell on Windows defaults to 1.1, which is unsupported

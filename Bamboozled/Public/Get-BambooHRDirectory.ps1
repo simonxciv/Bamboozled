@@ -8,7 +8,8 @@ function Get-BambooHRDirectory {
         [Parameter(Mandatory=$true,Position=1)]$subDomain,
         [Parameter(Mandatory=$false,Position=2)]$since,
         [Parameter(Mandatory=$false,Position=3)]$fields,
-        [Parameter(Mandatory=$false,Position=4)][switch]$active
+        [Parameter(Mandatory=$false,Position=4)][switch]$active,
+        [Parameter(Mandatory=$false,Position=5)][bool]$onlyCurrent = $false
     )
 
     # Force use of TLS1.2 for compatibility with BambooHR's API server. Powershell on Windows defaults to 1.1, which is unsupported
@@ -63,6 +64,11 @@ function Get-BambooHRDirectory {
 
     # API endpoint URL
     $directoryUrl = "https://api.bamboohr.com/api/gateway.php/{0}/v1/reports/custom?format=json" -f $subDomain
+
+    # Add onlyCurrent URI parameter if requested
+    if (!$onlyCurrent) {
+        $directoryUrl += '&onlyCurrent=false'
+    }
 
     # Build a BambooHR credential object using the provided API key
     $bambooHRAuth = Get-BambooHRAuth -ApiKey $apiKey

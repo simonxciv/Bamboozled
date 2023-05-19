@@ -8,7 +8,8 @@ function Get-BambooHRUser {
         [Parameter(Mandatory=$true,Position=1)]$subDomain,
         [Parameter(Mandatory=$false,Position=2)]$id,
         [Parameter(Mandatory=$false,Position=3)]$emailAddress,
-        [Parameter(Mandatory=$false,Position=4)]$fields
+        [Parameter(Mandatory=$false,Position=4)]$fields,
+        [Parameter(Mandatory=$false,Position=5)][bool]$onlyCurrent = $true
     )
     # Force use of TLS1.2 for compatibility with BambooHR's API server. Powershell on Windows defaults to 1.1, which is unsupported
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
@@ -40,6 +41,11 @@ function Get-BambooHRUser {
     
     # Define the URL to perform the request to
     $userUrl = 'https://api.bamboohr.com/api/gateway.php/{0}/v1/employees/{1}?fields={2}' -f $subDomain,$employeeID,$fields
+
+    # Add onlyCurrent URI parameter if requested
+    if (!$onlyCurrent) {
+        $userUrl += '&onlyCurrent=false'
+    }
 
     # Build a BambooHR credential object using the provided API key
     $bambooHRAuth = Get-BambooHRAuth -ApiKey $apiKey
